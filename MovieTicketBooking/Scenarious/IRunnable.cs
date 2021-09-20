@@ -1,5 +1,4 @@
-﻿
-namespace MovieTicketBooking.Scenarious
+﻿namespace MovieTicketBooking.Scenarious
 {
     interface IRunnable
     {

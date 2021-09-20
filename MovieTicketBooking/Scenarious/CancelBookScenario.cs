@@ -37,9 +37,9 @@ namespace MovieTicketBooking.Scenarious
                 Console.WriteLine("Type your phone number: ");
                 string phoneNumberEntered = Console.ReadLine();
                 
-                var bookingToCancel = _bookings.Where(booking => booking.PhoneNumber == phoneNumberEntered).Last();
+                var bookingToCancel = _bookings.Where(booking => booking.PhoneNumber == phoneNumberEntered && booking.MovieId ==selectedMovie.Id).First();
 
-                selectedMovie.ValidateReservationOnCurrentMovie(bookingToCancel.Id);
+                //selectedMovie.ValidateReservationOnCurrentMovie(bookingToCancel.Id);
 
                 _bookings.Remove(bookingToCancel);
 
@@ -49,11 +49,6 @@ namespace MovieTicketBooking.Scenarious
 
                 File.WriteAllText(_pathToMovies, JsonConvert.SerializeObject(_movies, Formatting.Indented));
                 File.WriteAllText(_pathToBookings, JsonConvert.SerializeObject(_bookings, Formatting.Indented));
-            }
-            catch (NoReservationsOnMovie exception)
-            {
-                Console.WriteLine();
-                Console.WriteLine(exception.Message);
             }
             catch(InvalidOperationException)
             {

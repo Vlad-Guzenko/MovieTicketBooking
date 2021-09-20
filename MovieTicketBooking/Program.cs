@@ -45,6 +45,7 @@ namespace MovieTicketBooking
 
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
+                        new SearchMovieScenario(movies).Run();
                         break;
 
                     case ConsoleKey.D2:
@@ -61,7 +62,14 @@ namespace MovieTicketBooking
                     case ConsoleKey.NumPad4:
                         new CancelBookScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
                         //ShowAllBookings(bookings);
-
+                        break;
+                    case ConsoleKey.D5:
+                    case ConsoleKey.NumPad5:
+                        new AddMovieScenario(movies,pathToMovies).Run();
+                        break;
+                    case ConsoleKey.D6:
+                    case ConsoleKey.NumPad6:
+                        new DeleteMovieScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
                         break;
                 }
             }
@@ -70,7 +78,7 @@ namespace MovieTicketBooking
         
         private static void RenderMainMenu()
         {
-            Console.WriteLine("\n1. Search movie" + "\n2. Sort a movies" + "\n3. Book a movie" + "\n4. Booking cancelation" + "\n5. Add movie" + "\n6. Exit");
+            Console.WriteLine("\n1. Search movie" + "\n2. Sort a movies" + "\n3. Book a movie" + "\n4. Booking cancelation" + "\n5. Add movie" + "\n6. Delete movie" + "\n7. Exit");
             Console.WriteLine("\nSelect: ");
         }
         private static void RenderMoviesTable(List<Movie> movies)
@@ -105,7 +113,7 @@ namespace MovieTicketBooking
             var tab = new ConsoleTable("Name", "Surname", "Phone", "Seats", "Id");
             bookings.ForEach(booking =>
             {
-                tab.AddRow(booking.Name, booking.Surname, booking.PhoneNumber, booking.SeatsQuantity, booking.Id);
+                tab.AddRow(booking.Name, booking.Surname, booking.PhoneNumber, booking.SeatsQuantity, booking.MovieId);
             });
             tab.Write();
             Console.ReadLine();
@@ -117,6 +125,13 @@ namespace MovieTicketBooking
         public Guid Id = Guid.NewGuid();
         public string Title { get; set; }
         public int FreeSeats { get; set; }
+
+        public Movie(Guid id, string title, int freeseats)
+        {
+            Id = id;
+            Title = title;
+            FreeSeats = freeseats;
+        }
 
         internal void BookRequestedSeats(int requestedSeats)
         {
@@ -139,26 +154,10 @@ namespace MovieTicketBooking
                 throw new NoSeatsException($"There's no free seats for {Title}!");
             }
         }
-
-        internal void ValidateReservationOnCurrentMovie(Guid id)
-        {
-            if (Id != id)
-            {
-                throw new NoReservationsOnMovie($"There's no reservations on movie {Title}!");
-            }
-        }
-
-        /*internal void ValidateNoSeatsReserved(Guid id)
-        {
-            if ()
-            {
-                throw new NoSeatsException($"There's no free seats for {Title}!");
-            }
-        }*/
     }
     public class BookedMovie
     {
-        public Guid Id { get; set; }
+        public Guid MovieId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
@@ -166,7 +165,7 @@ namespace MovieTicketBooking
 
         public BookedMovie(Guid id, string name, string surname, string phoneNumber, int seatsQuantity)
         {
-            Id = id;
+            MovieId = id;
             Name = name;
             Surname = surname;
             PhoneNumber = phoneNumber;
@@ -179,13 +178,5 @@ namespace MovieTicketBooking
             tab.AddRow(Name, Surname, PhoneNumber, SeatsQuantity);
             tab.Write();
         }
-
-        /*public void ValidatePhoneNumber(string phoneNumber)
-        {
-            if (PhoneNumber != phoneNumber)
-            {
-                throw new NoNumberFoundException("Sorry, we haven't found reservations on this phone number!");
-            }
-        }*/
     }
 }

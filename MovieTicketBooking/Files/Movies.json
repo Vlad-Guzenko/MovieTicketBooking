@@ -1,10 +1,5 @@
 [
   {
-    "Id": "fe9f6836-66dc-415f-8bc6-39234edac096",
-    "Title": "12 Angry Men",
-    "FreeSeats": 1
-  },
-  {
     "Id": "c5d46e2f-757e-470c-8831-e3a84e6134bf",
     "Title": "Pulp Fiction",
     "FreeSeats": 3
@@ -27,7 +22,7 @@
   {
     "Id": "6891b08f-6641-4455-a6ed-953e27c74d8d",
     "Title": "The Godfather: Part II",
-    "FreeSeats": 3
+    "FreeSeats": 1
   },
   {
     "Id": "472e7055-7e0d-42c5-a440-962160119acd",
@@ -47,6 +42,6 @@
   {
     "Id": "ae1e4ace-7d9a-415a-bd80-65763ff8b6f3",
     "Title": "The Shawshank Redemption",
-    "FreeSeats": 3
+    "FreeSeats": 2
   }
 ]
