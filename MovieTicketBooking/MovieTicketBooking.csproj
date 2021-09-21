@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\NoNumberFoundException.cs" />
     <Compile Include="Exceptions\NoReservationsOnMovie.cs" />
     <Compile Include="Exceptions\NoSeatsException.cs" />
     <Compile Include="Exceptions\NoSuchTitleMovieException.cs" />
@@ -63,7 +62,11 @@
     <Compile Include="Scenarious\CancelBookScenario.cs" />
     <Compile Include="Scenarious\DeleteMovieScenario.cs" />
     <Compile Include="Scenarious\IRunnable.cs" />
+    <Compile Include="Scenarious\LeaveCommentScenario.cs" />
+    <Compile Include="Scenarious\SearchMenuScenarious\BookSpecificMovieScenario.cs" />
+    <Compile Include="Scenarious\SearchMenuScenarious\ShowCommentsOfSpecificMovieScenario.cs" />
     <Compile Include="Scenarious\SearchMovieScenario.cs" />
+    <Compile Include="Scenarious\ShowCommentsScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -75,4 +78,9 @@
     <Folder Include="BussinessEntities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties files_4movies_1json__JsonSchema="https://appsemble.app/api.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

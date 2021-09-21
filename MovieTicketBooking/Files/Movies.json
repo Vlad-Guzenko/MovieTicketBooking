@@ -2,46 +2,188 @@
   {
     "Id": "c5d46e2f-757e-470c-8831-e3a84e6134bf",
     "Title": "Pulp Fiction",
-    "FreeSeats": 3
+    "FreeSeats": 0,
+    "Genre": "Crime",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 8.8
   },
   {
     "Id": "b5179375-7869-49cf-b891-1bcca2402fb7",
     "Title": "Schindler's List",
-    "FreeSeats": 3
+    "FreeSeats": 2,
+    "Genre": "History",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 8.9
   },
   {
     "Id": "393fe171-29fa-402d-aee5-f9ba6d55aa31",
     "Title": "The Dark Knight",
-    "FreeSeats": 3
+    "FreeSeats": 1,
+    "Genre": "Action",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 9.0
   },
   {
     "Id": "fd8e4d8e-e408-4ef4-b1fe-2d48088b5d18",
     "Title": "The Godfather",
-    "FreeSeats": 3
+    "FreeSeats": 3,
+    "Genre": "Crime",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 9.1
   },
   {
     "Id": "6891b08f-6641-4455-a6ed-953e27c74d8d",
     "Title": "The Godfather: Part II",
-    "FreeSeats": 1
+    "FreeSeats": 3,
+    "Genre": "Crime",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 9.0
   },
   {
     "Id": "472e7055-7e0d-42c5-a440-962160119acd",
     "Title": "The Good, the Bad and the Ugly",
-    "FreeSeats": 3
+    "FreeSeats": 3,
+    "Genre": "Western",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 8.8
   },
   {
     "Id": "0bddd28f-83df-4330-b348-8a0878760f94",
     "Title": "The Lord of the Rings: The Fellowship of the Ring",
-    "FreeSeats": 3
+    "FreeSeats": 3,
+    "Genre": "Adventure",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 8.8
   },
   {
     "Id": "3f0736df-e08f-455c-8507-f934f0583838",
     "Title": "The Lord of the Rings: The Return of the King",
-    "FreeSeats": 3
+    "FreeSeats": 3,
+    "Genre": "Adventure",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 8.9
   },
   {
     "Id": "ae1e4ace-7d9a-415a-bd80-65763ff8b6f3",
     "Title": "The Shawshank Redemption",
-    "FreeSeats": 2
+    "FreeSeats": 3,
+    "Genre": "Drama",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 9.2
+  },
+  {
+    "Id": "362e35bc-33e5-48a1-825e-ed413e488484",
+    "Title": "12 Angry Men",
+    "FreeSeats": 3,
+    "Genre": "Crime",
+    "Comments": [
+      {
+        "User": "user1",
+        "Text": "wow you can realy dance"
+      },
+      {
+        "User": "user2",
+        "Text": "wow you can realy daddasddnce"
+      }
+    ],
+    "Rating": 9.0
+  },
+  {
+    "Id": "85d92a32-0789-4aed-b678-fc42b2190d9f",
+    "Title": "Interstellar",
+    "FreeSeats": 100,
+    "Genre": "Drama",
+    "Comments": [
+      {
+        "User": "Vlad",
+        "Text": "sdjhfkjhsdhakfjhagdf"
+      },
+      {
+        "User": "Vitalik",
+        "Text": "dfkasdhf ksdhjgfg kjasdhgfkjsad fhg kjasdhdgf kjas gf"
+      }
+    ],
+    "Rating": 9.9
   }
 ]

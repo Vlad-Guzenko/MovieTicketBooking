@@ -9,6 +9,7 @@ namespace MovieTicketBooking.Scenarious
     {
         //public Movie _newMovie { get; set; }
         public List<Movie> _movies { get; set; }
+        public List<Comment> _comments { get; set; }
         public string _pathToMovies { get; set; }
 
         public AddMovieScenario(List<Movie> movies, string pathToMovies)
@@ -25,8 +26,14 @@ namespace MovieTicketBooking.Scenarious
             var movieTitle = Console.ReadLine();
             Console.WriteLine("Enter seats quantity: ");
             int seatsQuantity = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter movie genre: ");
+            string movieGenre = Console.ReadLine();
 
-            _movies.Add(new Movie(Guid.NewGuid(), movieTitle, seatsQuantity));
+            Console.WriteLine("Enter the movie rating: ");
+            float movieRating = float.Parse(Console.ReadLine());
+
+
+            _movies.Add(new Movie(Guid.NewGuid(), movieTitle, seatsQuantity, movieGenre, new List<Comment>() , (float)Math.Round(movieRating, 1)));
 
             Console.WriteLine("Added!");
 

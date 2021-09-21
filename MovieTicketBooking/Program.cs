@@ -19,8 +19,6 @@ namespace MovieTicketBooking
             var moviesAsString = File.ReadAllText(pathToMovies);
             var movies = JsonConvert.DeserializeObject<List<Movie>>(moviesAsString);
 
-            //File.WriteAllText(pathToMovies, JsonConvert.SerializeObject(movies, Formatting.Indented));
-
             var bookingsAsString = File.ReadAllText(pathToBookedMovies);
             var bookings = JsonConvert.DeserializeObject<List<BookedMovie>>(bookingsAsString);
 
@@ -45,7 +43,7 @@ namespace MovieTicketBooking
 
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
-                        new SearchMovieScenario(movies).Run();
+                        new SearchMovieScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
                         break;
 
                     case ConsoleKey.D2:
@@ -71,6 +69,14 @@ namespace MovieTicketBooking
                     case ConsoleKey.NumPad6:
                         new DeleteMovieScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
                         break;
+                    case ConsoleKey.D7:
+                    case ConsoleKey.NumPad7:
+                        new ShowCommentsScenario(movies).Run();
+                        break;
+                    case ConsoleKey.D8:
+                    case ConsoleKey.NumPad8:
+                        new LeaveCommentScenario(movies, pathToMovies).Run();
+                        break;
                 }
             }
             while (keyInfo.Key != ConsoleKey.X);
@@ -78,7 +84,7 @@ namespace MovieTicketBooking
         
         private static void RenderMainMenu()
         {
-            Console.WriteLine("\n1. Search movie" + "\n2. Sort a movies" + "\n3. Book a movie" + "\n4. Booking cancelation" + "\n5. Add movie" + "\n6. Delete movie" + "\n7. Exit");
+            Console.WriteLine("\n1. Search movie" + "\n2. Sort a movies" + "\n3. Book a movie" + "\n4. Booking cancelation" + "\n5. Add movie" + "\n6. Delete movie" + "\n7. Show movie comments" + "\n8. Leave a comment ");
             Console.WriteLine("\nSelect: ");
         }
         private static void RenderMoviesTable(List<Movie> movies)
@@ -89,15 +95,15 @@ namespace MovieTicketBooking
 
             var rightPaddingTitle = new string(' ', maxTitleLength - titleCol.Length);
 
-            Console.WriteLine($"| #  | {titleCol}{rightPaddingTitle} | Free Seats |");
+            Console.WriteLine($"| #  | {titleCol}{rightPaddingTitle} | Free Seats | Comments |");
 
             foreach (var movieIterator in movies.Select((item, index) => (item, index)))
             {
                 var leftPad = new string(' ', maxTitleLength - movieIterator.item.Title.Length);
                 
                 var number = movieIterator.index + 1;
-                Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} | {movieIterator.item.FreeSeats}          |");
-            }
+                Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} |     {movieIterator.item.FreeSeats.ToString("D3")}    |    {movieIterator.item.Comments.Count.ToString("D3")}   |");
+            } 
         }
         private static void SortMovies(List<Movie> movies, string path)
         {
@@ -125,12 +131,18 @@ namespace MovieTicketBooking
         public Guid Id = Guid.NewGuid();
         public string Title { get; set; }
         public int FreeSeats { get; set; }
+        public string Genre { get; set; }
+        public List<Comment> Comments { get; set; }
+        public float Rating { get; set; }
 
-        public Movie(Guid id, string title, int freeseats)
+        public Movie(Guid id, string title, int freeseats, string genre, List<Comment> comments, float rating)
         {
             Id = id;
             Title = title;
             FreeSeats = freeseats;
+            Genre = genre;
+            Comments = comments;
+            Rating = rating;
         }
 
         internal void BookRequestedSeats(int requestedSeats)
@@ -155,6 +167,7 @@ namespace MovieTicketBooking
             }
         }
     }
+
     public class BookedMovie
     {
         public Guid MovieId { get; set; }
@@ -177,6 +190,18 @@ namespace MovieTicketBooking
             var tab = new ConsoleTable("Name", "Surname", "Phone", "Seats");
             tab.AddRow(Name, Surname, PhoneNumber, SeatsQuantity);
             tab.Write();
+        }
+    }
+
+    public class Comment
+    {
+        public string User { get; set; }
+        public string Text{ get; set; }
+
+        public Comment(string user, string review)
+        {
+            User = user;
+            Text = review;
         }
     }
 }
