@@ -7,10 +7,12 @@ namespace MovieTicketBooking.Scenarious
     class ShowAllBookingsScenario:IRunnable
     {
         public List<BookedMovie> _bookings { get; set; }
+
         public ShowAllBookingsScenario(List<BookedMovie> bookings)
         {
             _bookings = bookings;
         }
+
         public void Run()
         {
             Console.Clear();

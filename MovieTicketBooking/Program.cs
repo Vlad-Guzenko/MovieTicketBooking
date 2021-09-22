@@ -23,7 +23,6 @@ namespace MovieTicketBooking
             var bookings = JsonConvert.DeserializeObject<List<BookedMovie>>(bookingsAsString);
             int pageNumber = 1;
 
-
             ///render a table
             RenderMoviesTable(movies/*, pageNumber*/);
             RenderMainMenu();
@@ -133,10 +132,10 @@ namespace MovieTicketBooking
             RenderMoviesTable(movies/*, pageNumber*/);
             RenderMainMenu();
         }
-        private static List<Movie> GetPage(List<Movie> moviesArg, int pageNumber)
+        /*private static List<Movie> GetPage(List<Movie> moviesArg, int pageNumber)
         {            
             return moviesArg.Skip((pageNumber - 1) * 10).Take(10).ToList();
-        }
+        }*/
     }
 
     public class Movie

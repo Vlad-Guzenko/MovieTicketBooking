@@ -29,7 +29,6 @@ namespace MovieTicketBooking.Scenarious
 
             try
             {
-                //getting movie
                 int movieNumber = int.Parse(Console.ReadLine());
                 var selectedMovie = _movies.ElementAt(movieNumber - 1);
 
@@ -38,7 +37,6 @@ namespace MovieTicketBooking.Scenarious
                 Console.Clear();
                 Console.WriteLine($"Movie selected: {selectedMovie.Title}");
 
-                //enter data
                 Console.WriteLine("Type your name: ");
                 string name = Console.ReadLine();
 

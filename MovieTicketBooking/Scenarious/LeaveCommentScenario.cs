@@ -34,10 +34,9 @@ namespace MovieTicketBooking.Scenarious
 
             selectedMovie.Comments.Add( new Comment(nameEntered, reviewTyped));
 
-            Console.WriteLine("New comment has been created!");
-
             File.WriteAllText(_pathToMovies, JsonConvert.SerializeObject(_movies, Formatting.Indented));
 
+            Console.WriteLine("New comment has been created!");
             Console.WriteLine("Press backspace to return");
         }
     }

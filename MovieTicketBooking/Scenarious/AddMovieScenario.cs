@@ -7,7 +7,6 @@ namespace MovieTicketBooking.Scenarious
 {
     public class AddMovieScenario:IRunnable
     {
-        //public Movie _newMovie { get; set; }
         public List<Movie> _movies { get; set; }
         public List<Comment> _comments { get; set; }
         public string _pathToMovies { get; set; }
@@ -31,7 +30,6 @@ namespace MovieTicketBooking.Scenarious
 
             Console.WriteLine("Enter the movie rating: ");
             float movieRating = float.Parse(Console.ReadLine());
-
 
             _movies.Add(new Movie(Guid.NewGuid(), movieTitle, seatsQuantity, movieGenre, new List<Comment>() , (float)Math.Round(movieRating, 1)));
 

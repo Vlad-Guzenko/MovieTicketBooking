@@ -29,7 +29,5 @@ namespace MovieTicketBooking.Scenarious
             
             Console.WriteLine("\nPress backspace to return");
         }
-
-        
     }
 }

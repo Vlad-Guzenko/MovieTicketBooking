@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
-using MovieTicketBooking.Exceptions;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -37,9 +36,8 @@ namespace MovieTicketBooking.Scenarious
                 Console.WriteLine("Type your phone number: ");
                 string phoneNumberEntered = Console.ReadLine();
                 
-                var bookingToCancel = _bookings.Where(booking => booking.PhoneNumber == phoneNumberEntered && booking.MovieId ==selectedMovie.Id).First();
-
-                //selectedMovie.ValidateReservationOnCurrentMovie(bookingToCancel.Id);
+                var bookingToCancel = _bookings.Where(booking => booking.PhoneNumber == phoneNumberEntered && booking.MovieId ==selectedMovie.Id)
+                                               .First();
 
                 _bookings.Remove(bookingToCancel);
 

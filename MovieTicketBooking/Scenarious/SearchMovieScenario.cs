@@ -13,8 +13,6 @@ namespace MovieTicketBooking.Scenarious
         private string _pathToMovies;
         private string _pathToBookings;
 
-
-
         public SearchMovieScenario(List<Movie> movies, List<BookedMovie> bookings, string pathToMovies, string pathToBookings)
         {
             _movies = movies;
@@ -56,7 +54,6 @@ namespace MovieTicketBooking.Scenarious
                         new BookSpecificMovieScenario(foundMovie.Id, _movies, _bookings, _pathToMovies, _pathToBookings).Run();
                         break;
                 }
-
             }
             catch (InvalidOperationException)
             {

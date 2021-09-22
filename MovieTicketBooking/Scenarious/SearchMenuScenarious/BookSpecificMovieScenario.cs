@@ -35,7 +35,6 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 
                 foundMovie.ValidateAvailableSeats();
 
-                //enter data
                 Console.WriteLine("Type your name: ");
                 string name = Console.ReadLine();
 
@@ -68,7 +67,6 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
                 Console.WriteLine();
                 Console.WriteLine(exception.Message);
             }
-
         }
     }
 }
