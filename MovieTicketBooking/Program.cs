@@ -21,7 +21,7 @@ namespace MovieTicketBooking
 
             var bookingsAsString = File.ReadAllText(pathToBookedMovies);
             var bookings = JsonConvert.DeserializeObject<List<BookedMovie>>(bookingsAsString);
-            int pageNumber = 1;
+            //int pageNumber = 1;
 
             ///render a table
             RenderMoviesTable(movies/*, pageNumber*/);
@@ -48,7 +48,7 @@ namespace MovieTicketBooking
 
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        SortMovies(movies, pathToMovies, pageNumber);
+                        SortMovies(movies, pathToMovies/*, pageNumber*/);
                         break;
 
                     case ConsoleKey.D3:
@@ -101,7 +101,7 @@ namespace MovieTicketBooking
 
         private static void RenderMainMenu()
         {
-            Console.WriteLine("\n<- PREVIOUS " + "| NEXT ->" + "\n\n1. Search movie" + "\n2. Sort movies" + "\n3. Book a movie" + "\n4. Cancel a movie" + "\n5. Add movie" + "\n6. Delete movie" + "\n7. Show movie comments" + "\n8. Leave a comment " + "\n9. Show all bookings");
+            Console.WriteLine("\n<- PREVIOUS " + "| NEXT ->" + "\n\n1. Search movie" + "\n2. Sort movies" + "\n3. Book a movie" + "\n4. Cancel booking" + "\n5. Add movie" + "\n6. Delete movie" + "\n7. Show movie comments" + "\n8. Leave a comment " + "\n9. Show all bookings");
             Console.WriteLine("\nSelect: ");
         }
         private static void RenderMoviesTable(List<Movie> movies/*, int pageNumber*/)
@@ -114,17 +114,17 @@ namespace MovieTicketBooking
 
             var rightPaddingTitle = new string(' ', maxTitleLength - titleCol.Length);
 
-            Console.WriteLine($"| #  | {titleCol}{rightPaddingTitle} | Free Seats | Comments |");
-            
+            Console.WriteLine($"| #  | {titleCol}{rightPaddingTitle} | Free Seats | Comments | Rating |");
+            var specifier = "0.0";
             foreach (var movieIterator in movies.Select((item, index) => (item, index)))
             {
                 var leftPad = new string(' ', maxTitleLength - movieIterator.item.Title.Length);
 
                 var number = movieIterator.index + 1;
-                Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} |     {movieIterator.item.FreeSeats.ToString("D3")}    |    {movieIterator.item.Comments.Count.ToString("D3")}   |");
+                Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} |     {movieIterator.item.FreeSeats.ToString("D3")}    |    {movieIterator.item.Comments.Count.ToString("D3")}   |   {movieIterator.item.Rating.ToString(specifier)}  |");
             }
         }
-        private static void SortMovies(List<Movie> movies, string path, int pageNumber)
+        private static void SortMovies(List<Movie> movies, string path/*, int pageNumber*/)
         {
             Console.Clear();
             movies = movies.OrderBy(movie => movie.Title).ToList();

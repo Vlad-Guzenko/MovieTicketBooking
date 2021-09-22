@@ -8,10 +8,10 @@ namespace MovieTicketBooking.Scenarious
 {
     public class DeleteMovieScenario: IRunnable
     {
-        public List<Movie> _movies { get; set; }
-        public List<BookedMovie> _bookings { get; set; }
-        public string _pathToMovies { get; set; }
-        public string _pathToBookings { get; set; }
+        private List<Movie> _movies { get; set; }
+        private List<BookedMovie> _bookings { get; set; }
+        private string _pathToMovies { get; set; }
+        private string _pathToBookings { get; set; }
 
         public DeleteMovieScenario(List<Movie> movies, List<BookedMovie> bookings, string pathToMovies, string pathToBookings)
         {
@@ -38,7 +38,7 @@ namespace MovieTicketBooking.Scenarious
             File.WriteAllText(_pathToBookings, JsonConvert.SerializeObject(_bookings, Formatting.Indented));
 
             Console.WriteLine("Deleted!");
-            Console.WriteLine("Press Backspace to go back...");
+            Console.WriteLine("Press backspace to go back...");
         }
     }
 }

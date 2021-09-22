@@ -7,9 +7,9 @@ namespace MovieTicketBooking.Scenarious
 {
     public class AddMovieScenario:IRunnable
     {
-        public List<Movie> _movies { get; set; }
-        public List<Comment> _comments { get; set; }
-        public string _pathToMovies { get; set; }
+        private List<Movie> _movies { get; set; }
+        //private List<Comment> _comments { get; set; }
+        private string _pathToMovies { get; set; }
 
         public AddMovieScenario(List<Movie> movies, string pathToMovies)
         {

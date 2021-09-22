@@ -39,7 +39,7 @@ namespace MovieTicketBooking.Scenarious
                 tab.AddRow(foundMovie.Title, foundMovie.FreeSeats, foundMovie.Genre, foundMovie.Rating.ToString(specifier));
                 tab.Write(Format.Alternative);
 
-                Console.WriteLine("\n1. Show movie comments\n2. Book a movie");
+                Console.WriteLine("\n1. Show movie comments\n2. Book a movie" + "\n3. Show bookings");
 
                 keyInfo = Console.ReadKey();
 
@@ -52,6 +52,10 @@ namespace MovieTicketBooking.Scenarious
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
                         new BookSpecificMovieScenario(foundMovie.Id, _movies, _bookings, _pathToMovies, _pathToBookings).Run();
+                        break;
+                    case ConsoleKey.D3:
+                    case ConsoleKey.NumPad3:
+                        new ShowBookingOfSpecificMovie(foundMovie, _bookings, foundMovie.Id).Run();
                         break;
                 }
             }

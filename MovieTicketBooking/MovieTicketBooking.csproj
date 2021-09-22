@@ -64,6 +64,7 @@
     <Compile Include="Scenarious\IRunnable.cs" />
     <Compile Include="Scenarious\LeaveCommentScenario.cs" />
     <Compile Include="Scenarious\SearchMenuScenarious\BookSpecificMovieScenario.cs" />
+    <Compile Include="Scenarious\SearchMenuScenarious\ShowBookingOfSpecificMovie.cs" />
     <Compile Include="Scenarious\SearchMenuScenarious\ShowCommentsOfSpecificMovieScenario.cs" />
     <Compile Include="Scenarious\SearchMovieScenario.cs" />
     <Compile Include="Scenarious\ShowAllBookingsScenario.cs" />

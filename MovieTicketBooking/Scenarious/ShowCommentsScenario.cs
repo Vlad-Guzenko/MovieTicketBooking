@@ -5,9 +5,10 @@ using System.Linq;
 
 namespace MovieTicketBooking.Scenarious
 {
-    public class ShowCommentsScenario:IRunnable
+    public class ShowCommentsScenario : IRunnable
     {
-        public List<Movie> _movies { get; set; }
+        private List<Movie> _movies { get; set; }
+
         public ShowCommentsScenario(List<Movie> movies)
         {
             _movies = movies;

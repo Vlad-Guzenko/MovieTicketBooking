@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace MovieTicketBooking.Scenarious
 {
-    class LeaveCommentScenario:IRunnable
+    public class LeaveCommentScenario : IRunnable
     {
-        public List<Movie> _movies { get; set; }
+        private List<Movie> _movies { get; set; }
 
-        public string _pathToMovies { get; set; }
+        private string _pathToMovies { get; set; }
 
         public LeaveCommentScenario(List<Movie> movies, string pathToMovies)
         {

@@ -6,7 +6,7 @@ namespace MovieTicketBooking.Scenarious
 {
     class ShowAllBookingsScenario:IRunnable
     {
-        public List<BookedMovie> _bookings { get; set; }
+        private List<BookedMovie> _bookings { get; set; }
 
         public ShowAllBookingsScenario(List<BookedMovie> bookings)
         {

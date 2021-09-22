@@ -42,6 +42,10 @@
       {
         "User": "Vlad",
         "Text": "most dramatic movie a've seen'"
+      },
+      {
+        "User": "Andrey",
+        "Text": "My name is Andrey, i like this movie so much!"
       }
     ],
     "Rating": 8.4
@@ -170,7 +174,7 @@
   {
     "Id": "472e7055-7e0d-42c5-a440-962160119acd",
     "Title": "The Good, the Bad and the Ugly",
-    "FreeSeats": 3,
+    "FreeSeats": 1,
     "Genre": "Western",
     "Comments": [
       {
