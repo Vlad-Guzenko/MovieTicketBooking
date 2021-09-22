@@ -32,8 +32,6 @@ namespace MovieTicketBooking.Scenarious
             Console.WriteLine("Type your review: ");
             string reviewTyped = Console.ReadLine();
 
-            //_movies.Add(new Movie(selectedMovie.Id, selectedMovie.Title, selectedMovie.FreeSeats, selectedMovie.Genre, new List<Comment>() { new Comment(nameEntered, reviewTyped)}, selectedMovie.Rating));
-
             selectedMovie.Comments.Add( new Comment(nameEntered, reviewTyped));
 
             Console.WriteLine("New comment has been created!");
