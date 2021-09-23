@@ -1,24 +1,23 @@
 ﻿using ConsoleTables;
+using MovieTicketBooking.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MovieTicketBooking.Scenarious
 {
     public class ShowCommentsScenario : IRunnable
     {
-        private List<Movie> _movies { get; set; }
+        private MovieRepository _movieRepository;
 
-        public ShowCommentsScenario(List<Movie> movies)
+        public ShowCommentsScenario(MovieRepository movieRepository)
         {
-            _movies = movies;
+            _movieRepository = movieRepository;
         }
 
         public void Run()
         {
             Console.WriteLine("\nEnter a movie number: ");
             int movieNumber = int.Parse(Console.ReadLine());
-            var movieSelected = _movies.ElementAt(movieNumber - 1);
+            var movieSelected = _movieRepository.SelectMovie(movieNumber);
 
             Console.WriteLine();
             var tab = new ConsoleTable("Username", "Comment");

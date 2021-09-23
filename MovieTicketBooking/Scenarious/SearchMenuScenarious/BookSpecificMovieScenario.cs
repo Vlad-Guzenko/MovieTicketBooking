@@ -1,4 +1,5 @@
 ﻿using MovieTicketBooking.Exceptions;
+using MovieTicketBooking.Repositories;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,33 +8,27 @@ using System.Linq;
 
 namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 {
-    class BookSpecificMovieScenario:IRunnable
+    public class BookSpecificMovieScenario:IRunnable
     {
-        public List<Movie> _movies { get; set; }
-        private List<BookedMovie> _bookings;
-        private string _pathToMovies;
-        private string _pathToBookings;
-        private Guid _id;
+        private MovieRepository _movieRepository;
+        private Movie _specificMovie;
+        private BookingRepository _bookingRepository;
 
-        public BookSpecificMovieScenario(Guid id, List<Movie> movies, List<BookedMovie> bookings, string pathToMovies, string pathToBooking)
+        public BookSpecificMovieScenario(MovieRepository movieRepository, Movie specificMovie, BookingRepository bookingRepository)
         {
-            _movies = movies;
-            _bookings = bookings;
-            _pathToMovies = pathToMovies;
-            _pathToBookings = pathToBooking;
-            _id = id;
+            _movieRepository = movieRepository;
+            _specificMovie = specificMovie;
+            _bookingRepository = bookingRepository;
         }
 
         public void Run()
         {
             try
             {
-                var foundMovie = _movies.Where(movie => movie.Id == _id).First();
-
                 Console.Clear();
-                Console.WriteLine($"Movie selected: {foundMovie.Title}");
+                Console.WriteLine($"Movie selected: {_specificMovie.Title}");
 
-                foundMovie.ValidateAvailableSeats();
+                _specificMovie.ValidateAvailableSeats();
 
                 Console.WriteLine("Type your name: ");
                 string name = Console.ReadLine();
@@ -47,14 +42,12 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
                 Console.WriteLine("Enter seats quantity: ");
                 int requestedSeats = int.Parse(Console.ReadLine());
 
-                foundMovie.BookRequestedSeats(requestedSeats);
-
-                _bookings.Add(new BookedMovie(foundMovie.Id, name, surname, phoneNumber, requestedSeats));
+                _specificMovie.BookRequestedSeats(requestedSeats);
 
                 Console.WriteLine("The new reservation was successfuly added!");
 
-                File.WriteAllText(_pathToMovies, JsonConvert.SerializeObject(_movies, Formatting.Indented));
-                File.WriteAllText(_pathToBookings, JsonConvert.SerializeObject(_bookings, Formatting.Indented));
+                _movieRepository.Save();
+                _bookingRepository.Save();
 
             }
             catch (NotEnoughtSeatsException exception)

@@ -1,24 +1,17 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Linq;
-using System.IO;
-using Newtonsoft.Json;
+﻿using System;
+using MovieTicketBooking.Repositories;
 
 namespace MovieTicketBooking.Scenarious
 {
     class CancelBookScenario : IRunnable
     {
-        private List<Movie> _movies;
-        private List<BookedMovie> _bookings;
-        private string _pathToMovies;
-        private string _pathToBookings;
+        private MovieRepository _movieRepository;
+        private BookingRepository _bookingRepository;
 
-        public CancelBookScenario(List<Movie> movies, List<BookedMovie> bookings, string pathToMovies, string pathToBookings)
+        public CancelBookScenario(MovieRepository movieRepository,  BookingRepository bookingRepository)
         {
-            _movies = movies;
-            _bookings = bookings;
-            _pathToMovies = pathToMovies;
-            _pathToBookings = pathToBookings;
+            _movieRepository = movieRepository;
+            _bookingRepository = bookingRepository;
         }
 
         public void Run()
@@ -28,25 +21,24 @@ namespace MovieTicketBooking.Scenarious
             try
             {
                 int movieNumber = int.Parse(Console.ReadLine());
-                var selectedMovie = _movies.ElementAt(movieNumber - 1);
+                var selectedMovie = _movieRepository.SelectMovie(movieNumber);
 
                 Console.Clear();
                 Console.WriteLine($"Movie selected: {selectedMovie.Title}");
 
                 Console.WriteLine("Type your phone number: ");
                 string phoneNumberEntered = Console.ReadLine();
-                
-                var bookingToCancel = _bookings.Where(booking => booking.PhoneNumber == phoneNumberEntered && booking.MovieId ==selectedMovie.Id)
-                                               .First();
 
-                _bookings.Remove(bookingToCancel);
+                var bookingToCancel = _bookingRepository.FindByPhoneNumber(phoneNumberEntered, selectedMovie);
+
+                _bookingRepository.RemoveBooking(bookingToCancel);
 
                 selectedMovie.ReturnSeats(bookingToCancel.SeatsQuantity);
-
+                    
                 bookingToCancel.ShowCurrentBooking();
 
-                File.WriteAllText(_pathToMovies, JsonConvert.SerializeObject(_movies, Formatting.Indented));
-                File.WriteAllText(_pathToBookings, JsonConvert.SerializeObject(_bookings, Formatting.Indented));
+                _movieRepository.Save();
+                _bookingRepository.Save();
             }
             catch(InvalidOperationException)
             {

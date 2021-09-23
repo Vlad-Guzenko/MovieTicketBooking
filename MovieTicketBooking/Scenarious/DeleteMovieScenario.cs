@@ -1,24 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using MovieTicketBooking.Repositories;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace MovieTicketBooking.Scenarious
 {
     public class DeleteMovieScenario: IRunnable
     {
-        private List<Movie> _movies { get; set; }
-        private List<BookedMovie> _bookings { get; set; }
-        private string _pathToMovies { get; set; }
-        private string _pathToBookings { get; set; }
+        private MovieRepository _movieRepository;
+        private BookingRepository _bookingRepository;
 
-        public DeleteMovieScenario(List<Movie> movies, List<BookedMovie> bookings, string pathToMovies, string pathToBookings)
+        public DeleteMovieScenario(MovieRepository movieRepository, BookingRepository bookingRepository)
         {
-            _movies = movies;
-            _bookings = bookings;
-            _pathToMovies = pathToMovies;
-            _pathToBookings = pathToBookings;
+            _movieRepository = movieRepository;
+            _bookingRepository = bookingRepository;
         }
 
         public void Run()
@@ -28,14 +21,13 @@ namespace MovieTicketBooking.Scenarious
             Console.WriteLine("Select movie number: ");
 
             var movieNumber = int.Parse(Console.ReadLine());
-            var selectedMovie = _movies.ElementAt(movieNumber - 1);
+            var selectedMovie = _movieRepository.SelectMovie(movieNumber);
 
-            _movies.Remove(selectedMovie);
+            _movieRepository.RemoveMovie(selectedMovie);
+            _bookingRepository.RemoveAllBookings(selectedMovie);
 
-            _bookings.RemoveAll(bookings => bookings.MovieId == selectedMovie.Id);
-
-            File.WriteAllText(_pathToMovies, JsonConvert.SerializeObject(_movies, Formatting.Indented));
-            File.WriteAllText(_pathToBookings, JsonConvert.SerializeObject(_bookings, Formatting.Indented));
+            _movieRepository.Save();
+            _bookingRepository.Save();
 
             Console.WriteLine("Deleted!");
             Console.WriteLine("Press backspace to go back...");

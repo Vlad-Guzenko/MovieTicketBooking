@@ -5,7 +5,7 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 {
     class ShowCommentsOfSpecificMovieScenario
     {
-        public Movie _movie { get; set; }
+        private Movie _movie { get; set; }
         public ShowCommentsOfSpecificMovieScenario(Movie movie)
         {
             _movie = movie;

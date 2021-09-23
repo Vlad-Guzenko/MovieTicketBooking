@@ -1,29 +1,26 @@
 ﻿using ConsoleTables;
+using MovieTicketBooking.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 {
     class ShowBookingOfSpecificMovie : IRunnable
     {
         public Movie _movie { get; set; }
-        public List<BookedMovie> _bookings { get; set; }
+        private BookingRepository _bookingRepository;
         private Guid _id;
-        public ShowBookingOfSpecificMovie(Movie movie, List<BookedMovie> bookings, Guid id)
+        public ShowBookingOfSpecificMovie(BookingRepository bookingRepository, Guid id)
         {
-            _movie = movie;
-            _bookings = bookings;
+            _bookingRepository = bookingRepository;
             _id = id;
         }
         public void Run()
         {
             Console.WriteLine();
-            _bookings = _bookings.Where(booking => booking.MovieId == _id).ToList();
+            var bookings = _bookingRepository.GetById(_id);
+
             var tab = new ConsoleTable("Name", "Surname", "PhoneNumber", "SeatsQuantity");
-            _bookings.ForEach(booking =>
+            bookings.ForEach(booking =>
             {
                 tab.AddRow(booking.Name, booking.Surname, booking.PhoneNumber, booking.SeatsQuantity);
             });

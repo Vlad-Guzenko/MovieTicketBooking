@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System;
-using System.Linq;
 using ConsoleTables;
+
 using MovieTicketBooking.Exceptions;
 using MovieTicketBooking.Scenarious;
+using MovieTicketBooking.Helpers;
+using MovieTicketBooking.Repositories;
+using System.Linq;
 
 namespace MovieTicketBooking
 {
@@ -13,19 +14,13 @@ namespace MovieTicketBooking
     {
         static void Main(string[] args)
         {
-            var pathToMovies = @"../../Files\Movies.json";
-            var pathToBookedMovies = @"../../Files\BookedMovies.json";
+            var movieRepository = new MovieRepository();
+            var bookingRepository = new BookingRepository();
 
-            var moviesAsString = File.ReadAllText(pathToMovies);
-            var movies = JsonConvert.DeserializeObject<List<Movie>>(moviesAsString);
+            var uiHelper = new UIHelper(movieRepository, bookingRepository);
 
-            var bookingsAsString = File.ReadAllText(pathToBookedMovies);
-            var bookings = JsonConvert.DeserializeObject<List<BookedMovie>>(bookingsAsString);
-            //int pageNumber = 1;
-
-            ///render a table
-            RenderMoviesTable(movies/*, pageNumber*/);
-            RenderMainMenu();
+            uiHelper.RenderMoviesTable();
+            uiHelper.RenderMainMenu();
 
             ConsoleKeyInfo keyInfo;
 
@@ -37,105 +32,60 @@ namespace MovieTicketBooking
                 {
                     case ConsoleKey.Backspace:
                         Console.Clear();
-                        RenderMoviesTable(movies/*, pageNumber*/);
-                        RenderMainMenu();
+                        uiHelper.RenderMoviesTable();
+                        uiHelper.RenderMainMenu();
                         break;
 
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
-                        new SearchMovieScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
+                        new SearchMovieScenario(movieRepository, bookingRepository).Run();
                         break;
 
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        SortMovies(movies, pathToMovies/*, pageNumber*/);
+                        movieRepository.SortMovies();
+                        uiHelper.RenderMoviesTable();
+                        uiHelper.RenderMainMenu();
                         break;
 
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
-                        new BookMovieScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
+                        new BookMovieScenario(movieRepository, bookingRepository).Run();
                         break;
 
                     case ConsoleKey.D4:
                     case ConsoleKey.NumPad4:
-                        new CancelBookScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
-                        //ShowAllBookings(bookings);
+                        new CancelBookScenario(movieRepository, bookingRepository).Run();
                         break;
+
                     case ConsoleKey.D5:
                     case ConsoleKey.NumPad5:
-                        new AddMovieScenario(movies, pathToMovies).Run();
+                        new AddMovieScenario(movieRepository).Run();
                         break;
+
                     case ConsoleKey.D6:
                     case ConsoleKey.NumPad6:
-                        new DeleteMovieScenario(movies, bookings, pathToMovies, pathToBookedMovies).Run();
+                        new DeleteMovieScenario(movieRepository, bookingRepository).Run();
                         break;
+
                     case ConsoleKey.D7:
                     case ConsoleKey.NumPad7:
-                        new ShowCommentsScenario(movies).Run();
+                        new ShowCommentsScenario(movieRepository).Run();
                         break;
+
                     case ConsoleKey.D8:
                     case ConsoleKey.NumPad8:
-                        new LeaveCommentScenario(movies, pathToMovies).Run();
+                        new LeaveCommentScenario(movieRepository).Run();
                         break;
-                    /*case ConsoleKey.LeftArrow:
-                        RenderMainMenu();
-                        pageNumber = pageNumber == 1 ? pageNumber = 1 : pageNumber -= 1;
-                        RenderMoviesTable(movies, pageNumber);
-                        RenderMainMenu();
-                        break;
-                    case ConsoleKey.RightArrow:
-                        RenderMainMenu();
-                        int max = movies.Count() % 10;
-                        pageNumber = pageNumber == max ? pageNumber = max : pageNumber += 1;
-                        RenderMoviesTable(movies, pageNumber);
-                        RenderMainMenu();
-                        break;*/
+
                     case ConsoleKey.D9:
                     case ConsoleKey.NumPad9:
-                        new ShowAllBookingsScenario(bookings).Run();
+                        uiHelper.RenderBookings();
                         break;
                 }
             }
             while (keyInfo.Key != ConsoleKey.X);
         }
-
-        private static void RenderMainMenu()
-        {
-            Console.WriteLine("\n<- PREVIOUS " + "| NEXT ->" + "\n\n1. Search movie" + "\n2. Sort movies" + "\n3. Book a movie" + "\n4. Cancel booking" + "\n5. Add movie" + "\n6. Delete movie" + "\n7. Show movie comments" + "\n8. Leave a comment " + "\n9. Show all bookings");
-            Console.WriteLine("\nSelect: ");
-        }
-        private static void RenderMoviesTable(List<Movie> movies/*, int pageNumber*/)
-        {
-            Console.Clear();
-            //movies = GetPage(movies, pageNumber);
-            var maxTitleLength = movies.Max(title => title.Title.Length);
-
-            var titleCol = "Title";
-
-            var rightPaddingTitle = new string(' ', maxTitleLength - titleCol.Length);
-
-            Console.WriteLine($"| #  | {titleCol}{rightPaddingTitle} | Free Seats | Comments | Rating |");
-            var specifier = "0.0";
-            foreach (var movieIterator in movies.Select((item, index) => (item, index)))
-            {
-                var leftPad = new string(' ', maxTitleLength - movieIterator.item.Title.Length);
-
-                var number = movieIterator.index + 1;
-                Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} |     {movieIterator.item.FreeSeats.ToString("D3")}    |    {movieIterator.item.Comments.Count.ToString("D3")}   |   {movieIterator.item.Rating.ToString(specifier)}  |");
-            }
-        }
-        private static void SortMovies(List<Movie> movies, string path/*, int pageNumber*/)
-        {
-            Console.Clear();
-            movies = movies.OrderBy(movie => movie.Title).ToList();
-            File.WriteAllText(path, JsonConvert.SerializeObject(movies, Formatting.Indented));
-            RenderMoviesTable(movies/*, pageNumber*/);
-            RenderMainMenu();
-        }
-        /*private static List<Movie> GetPage(List<Movie> moviesArg, int pageNumber)
-        {            
-            return moviesArg.Skip((pageNumber - 1) * 10).Take(10).ToList();
-        }*/
     }
 
     public class Movie
@@ -147,7 +97,9 @@ namespace MovieTicketBooking
         public List<Comment> Comments { get; set; }
         public float Rating { get; set; }
 
-        public Movie(Guid id, string title, int freeseats, string genre, List<Comment> comments, float rating)
+        private Movie() { }
+
+        private Movie(Guid id, string title, int freeseats, string genre, List<Comment> comments, float rating)
         {
             Id = id;
             Title = title;
@@ -178,6 +130,11 @@ namespace MovieTicketBooking
                 throw new NoSeatsException($"There's no free seats for {Title}!");
             }
         }
+
+        public static Movie New(string movieTitle, string movieGenre, float movieRating, int seatsQuantity)
+        {
+            return new Movie(Guid.NewGuid(), movieTitle, seatsQuantity, movieGenre, new List<Comment>(), movieRating);
+        }
     }
 
     public class BookedMovie
@@ -188,13 +145,20 @@ namespace MovieTicketBooking
         public string PhoneNumber { get; set; }
         public int SeatsQuantity { get; set; }
 
-        public BookedMovie(Guid id, string name, string surname, string phoneNumber, int seatsQuantity)
+        public BookedMovie() { }
+
+        private BookedMovie(Guid id, string name, string surname, string phoneNumber, int seatsQuantity)
         {
             MovieId = id;
             Name = name;
             Surname = surname;
             PhoneNumber = phoneNumber;
             SeatsQuantity = seatsQuantity;
+        }
+
+        public static BookedMovie New(Guid id, string name,string surname,string phoneNumber, int requestedSeats)
+        {
+            return new BookedMovie(id, name, surname, phoneNumber, requestedSeats);
         }
 
         public void ShowCurrentBooking()

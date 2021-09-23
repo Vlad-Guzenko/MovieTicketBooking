@@ -2,7 +2,7 @@
   {
     "Id": "362e35bc-33e5-48a1-825e-ed413e488484",
     "Title": "12 Angry Men",
-    "FreeSeats": 3,
+    "FreeSeats": 1,
     "Genre": "Crime",
     "Comments": [
       {
@@ -12,14 +12,31 @@
       {
         "User": "user2",
         "Text": "wow you can realy daddasddnce"
+      },
+      {
+        "User": "Dmitry",
+        "Text": "aaaaaaaaa aaaaaaaaaa aaaaaaaaaaaa"
       }
     ],
     "Rating": 9.0
   },
   {
+    "Id": "8592dc76-05b6-4fe7-99d7-c9661b78efe0",
+    "Title": "BMW",
+    "FreeSeats": 290,
+    "Genre": "Sport",
+    "Comments": [
+      {
+        "User": "Vlad",
+        "Text": "sdlfjsdalkj asdkjfnalskdd sda sma dfla sdflj asdf"
+      }
+    ],
+    "Rating": 10
+  },
+  {
     "Id": "85d92a32-0789-4aed-b678-fc42b2190d9f",
     "Title": "Interstellar",
-    "FreeSeats": 100,
+    "FreeSeats": 67,
     "Genre": "Drama",
     "Comments": [
       {
@@ -78,7 +95,7 @@
   {
     "Id": "b5179375-7869-49cf-b891-1bcca2402fb7",
     "Title": "Schindler's List",
-    "FreeSeats": 2,
+    "FreeSeats": 0,
     "Genre": "History",
     "Comments": [
       {
@@ -92,6 +109,10 @@
       {
         "User": "sajhfjklsdhf",
         "Text": "dshkjadshgkajaebjksda jsjdhflsa duhflsadhf ksljdhf laskdjhf sdf"
+      },
+      {
+        "User": "Vvvv",
+        "Text": "wwww wwww www www www wwww wwwww wwwww wwwww wwwww wwww"
       }
     ],
     "Rating": 8.9
@@ -105,17 +126,9 @@
     "Rating": 7.4
   },
   {
-    "Id": "40115033-3500-4950-b215-cbd28dad6ae8",
-    "Title": "The Colony",
-    "FreeSeats": 120,
-    "Genre": "History",
-    "Comments": [],
-    "Rating": 7.1
-  },
-  {
     "Id": "393fe171-29fa-402d-aee5-f9ba6d55aa31",
     "Title": "The Dark Knight",
-    "FreeSeats": 1,
+    "FreeSeats": 0,
     "Genre": "Action",
     "Comments": [
       {
@@ -128,14 +141,6 @@
       }
     ],
     "Rating": 9.0
-  },
-  {
-    "Id": "4483cf04-9715-4737-a922-89bbe542f22d",
-    "Title": "The Gentlemen",
-    "FreeSeats": 221,
-    "Genre": "Action",
-    "Comments": [],
-    "Rating": 7.8
   },
   {
     "Id": "fd8e4d8e-e408-4ef4-b1fe-2d48088b5d18",
@@ -174,7 +179,7 @@
   {
     "Id": "472e7055-7e0d-42c5-a440-962160119acd",
     "Title": "The Good, the Bad and the Ugly",
-    "FreeSeats": 1,
+    "FreeSeats": 3,
     "Genre": "Western",
     "Comments": [
       {
@@ -244,7 +249,12 @@
     "Title": "Untouchable",
     "FreeSeats": 210,
     "Genre": "Comedy",
-    "Comments": [],
+    "Comments": [
+      {
+        "User": "Vasiliy",
+        "Text": "film is beautiful, but in the same time very upset."
+      }
+    ],
     "Rating": 8.5
   }
 ]

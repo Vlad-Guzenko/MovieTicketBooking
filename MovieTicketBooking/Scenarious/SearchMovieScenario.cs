@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+using MovieTicketBooking.Repositories;
 using MovieTicketBooking.Scenarious.SearchMenuScenarious;
 using System;
 using System.Collections.Generic;
@@ -6,19 +7,15 @@ using System.Linq;
 
 namespace MovieTicketBooking.Scenarious
 {
-    class SearchMovieScenario : IRunnable
+    public class SearchMovieScenario : IRunnable
     {
-        private List<Movie> _movies { get; set; }
-        private List<BookedMovie> _bookings;
-        private string _pathToMovies;
-        private string _pathToBookings;
+        private MovieRepository _movieRepository;
+        private BookingRepository _bookingRepository;
 
-        public SearchMovieScenario(List<Movie> movies, List<BookedMovie> bookings, string pathToMovies, string pathToBookings)
+        public SearchMovieScenario(MovieRepository movieRepository, BookingRepository bookingRepository)
         {
-            _movies = movies;
-            _bookings = bookings;
-            _pathToMovies = pathToMovies;
-            _pathToBookings = pathToBookings;
+            _movieRepository = movieRepository;
+            _bookingRepository = bookingRepository;
         }
 
         public void Run()
@@ -31,10 +28,9 @@ namespace MovieTicketBooking.Scenarious
                 var specifier = "0.0";
                 Console.WriteLine("Enter string to search: ");
                 string stringToSearch = Console.ReadLine().ToLower();
-                var foundMovie = _movies.Where(movie => movie.Title.ToLower()
-                                                                   .Contains(stringToSearch) ||
-                                                                   movie.Genre.ToLower().Contains(stringToSearch) ||
-                                                                   movie.Rating.ToString(specifier)== stringToSearch.ToString()).First();
+
+                Movie foundMovie = _movieRepository.FindMovie(stringToSearch, specifier);
+
                 var tab = new ConsoleTable("Title", "Free Seats", "Genre", "Rating");
                 tab.AddRow(foundMovie.Title, foundMovie.FreeSeats, foundMovie.Genre, foundMovie.Rating.ToString(specifier));
                 tab.Write(Format.Alternative);
@@ -51,11 +47,11 @@ namespace MovieTicketBooking.Scenarious
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        new BookSpecificMovieScenario(foundMovie.Id, _movies, _bookings, _pathToMovies, _pathToBookings).Run();
+                        new BookSpecificMovieScenario(_movieRepository, foundMovie, _bookingRepository).Run();
                         break;
                     case ConsoleKey.D3:
                     case ConsoleKey.NumPad3:
-                        new ShowBookingOfSpecificMovie(foundMovie, _bookings, foundMovie.Id).Run();
+                        new ShowBookingOfSpecificMovie(_bookingRepository, foundMovie.Id).Run();
                         break;
                 }
             }

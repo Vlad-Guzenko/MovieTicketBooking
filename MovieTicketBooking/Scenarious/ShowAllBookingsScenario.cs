@@ -1,23 +1,28 @@
 ﻿using ConsoleTables;
+using MovieTicketBooking.Repositories;
 using System;
 using System.Collections.Generic;
 
 namespace MovieTicketBooking.Scenarious
 {
-    class ShowAllBookingsScenario:IRunnable
+    public class ShowAllBookingsScenario : IRunnable
     {
-        private List<BookedMovie> _bookings { get; set; }
+        private BookingRepository _bookingRepository;
 
-        public ShowAllBookingsScenario(List<BookedMovie> bookings)
+        public ShowAllBookingsScenario(BookingRepository bookingRepository)
         {
-            _bookings = bookings;
+            _bookingRepository = bookingRepository;
         }
 
         public void Run()
         {
             Console.Clear();
+
             var tab = new ConsoleTable("Name", "Surname", "Phone", "Seats", "Id");
-            _bookings.ForEach(booking =>
+
+            var bookings = _bookingRepository.GetAll();
+
+            bookings.ForEach(booking =>
             {
                 tab.AddRow(booking.Name, booking.Surname, booking.PhoneNumber, booking.SeatsQuantity, booking.MovieId);
             });

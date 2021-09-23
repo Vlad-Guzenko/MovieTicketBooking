@@ -1,20 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using MovieTicketBooking.Repositories;
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace MovieTicketBooking.Scenarious
 {
-    public class AddMovieScenario:IRunnable
+    public class AddMovieScenario : IRunnable
     {
-        private List<Movie> _movies { get; set; }
-        //private List<Comment> _comments { get; set; }
-        private string _pathToMovies { get; set; }
+        private MovieRepository _movieRepository;
 
-        public AddMovieScenario(List<Movie> movies, string pathToMovies)
+        public AddMovieScenario(MovieRepository movieRepository)
         {
-            _movies = movies;
-            _pathToMovies = pathToMovies;
+            _movieRepository = movieRepository;
         }
 
         public void Run()
@@ -23,19 +18,21 @@ namespace MovieTicketBooking.Scenarious
 
             Console.WriteLine("Type movie title: ");
             var movieTitle = Console.ReadLine();
-            Console.WriteLine("Enter seats quantity: ");
-            int seatsQuantity = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter movie genre: ");
             string movieGenre = Console.ReadLine();
-
             Console.WriteLine("Enter the movie rating: ");
             float movieRating = float.Parse(Console.ReadLine());
-
-            _movies.Add(new Movie(Guid.NewGuid(), movieTitle, seatsQuantity, movieGenre, new List<Comment>() , (float)Math.Round(movieRating, 1)));
+            Console.WriteLine("Enter seats quantity: ");
+            int seatsQuantity = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Added!");
 
-            File.WriteAllText(_pathToMovies, JsonConvert.SerializeObject(_movies, Formatting.Indented));
+            var newMovie = Movie.New(movieTitle, movieGenre, movieRating, seatsQuantity);
+
+            _movieRepository.Create(newMovie);
+            //_bookings.Add(new BookedMovie(selectedMovie.Id, name, surname, phoneNumber, requestedSeats));
+
+            _movieRepository.Save();
 
             Console.WriteLine("Press Backspace to go back...");
         }

@@ -1,21 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using MovieTicketBooking.Repositories;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace MovieTicketBooking.Scenarious
 {
     public class LeaveCommentScenario : IRunnable
     {
-        private List<Movie> _movies { get; set; }
+        private MovieRepository _movieRepository;
 
-        private string _pathToMovies { get; set; }
-
-        public LeaveCommentScenario(List<Movie> movies, string pathToMovies)
+        public LeaveCommentScenario(MovieRepository movieRepository)
         {
-            _movies = movies;
-            _pathToMovies = pathToMovies;
+            _movieRepository = movieRepository;
         }
 
         public void Run()
@@ -24,7 +18,7 @@ namespace MovieTicketBooking.Scenarious
             Console.WriteLine("Select movie number: ");
 
             var movieNumber = int.Parse(Console.ReadLine());
-            var selectedMovie = _movies.ElementAt(movieNumber - 1);
+            var selectedMovie = _movieRepository.SelectMovie(movieNumber);
 
             Console.WriteLine("Enter you name: ");
             string nameEntered = Console.ReadLine();
@@ -34,7 +28,7 @@ namespace MovieTicketBooking.Scenarious
 
             selectedMovie.Comments.Add( new Comment(nameEntered, reviewTyped));
 
-            File.WriteAllText(_pathToMovies, JsonConvert.SerializeObject(_movies, Formatting.Indented));
+            _movieRepository.Save();
 
             Console.WriteLine("New comment has been created!");
             Console.WriteLine("Press backspace to return");
