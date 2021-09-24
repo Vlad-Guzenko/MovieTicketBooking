@@ -6,18 +6,19 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 {
     class ShowBookingOfSpecificMovie : IRunnable
     {
-        public Movie _movie { get; set; }
         private BookingRepository _bookingRepository;
-        private Guid _id;
-        public ShowBookingOfSpecificMovie(BookingRepository bookingRepository, Guid id)
+        private Guid _movieId;
+
+        public ShowBookingOfSpecificMovie(BookingRepository bookingRepository, Guid movieId)
         {
             _bookingRepository = bookingRepository;
-            _id = id;
+            _movieId = movieId;
         }
+
         public void Run()
         {
             Console.WriteLine();
-            var bookings = _bookingRepository.GetById(_id);
+            var bookings = _bookingRepository.GetById(_movieId);
 
             var tab = new ConsoleTable("Name", "Surname", "Phone Number", "Seats Quantity");
             bookings.ForEach(booking =>

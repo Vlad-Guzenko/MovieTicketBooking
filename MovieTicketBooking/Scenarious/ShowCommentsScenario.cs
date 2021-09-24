@@ -17,7 +17,7 @@ namespace MovieTicketBooking.Scenarious
         {
             Console.WriteLine("\nEnter a movie number: ");
             int movieNumber = int.Parse(Console.ReadLine());
-            var movieSelected = _movieRepository.SelectMovie(movieNumber);
+            var movieSelected = _movieRepository.GetMovie(movieNumber-1);
 
             Console.WriteLine();
             var tab = new ConsoleTable("Username", "Comment");

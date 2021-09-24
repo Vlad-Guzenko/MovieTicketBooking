@@ -27,7 +27,7 @@ namespace MovieTicketBooking.Scenarious
                 Console.WriteLine("Enter string to search: ");
                 string stringToSearch = Console.ReadLine().ToLower();
 
-                Movie foundMovie = _movieRepository.FindMovie(stringToSearch, specifier);
+                Movie foundMovie = _movieRepository.FindMovieByCriteria(stringToSearch, specifier);
 
                 var tab = new ConsoleTable("Title", "Free Seats", "Genre", "Rating");
                 tab.AddRow(foundMovie.Title, foundMovie.FreeSeats, foundMovie.Genre, foundMovie.Rating.ToString(specifier));
@@ -41,7 +41,7 @@ namespace MovieTicketBooking.Scenarious
                 {
                     case ConsoleKey.D1:
                     case ConsoleKey.NumPad1:
-                        new ShowCommentsOfSpecificMovieScenario(foundMovie).ShowCommentsOfSpecificMovie();
+                        new ShowCommentsOfSpecificMovieScenario(foundMovie).Run();
                         break;
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:

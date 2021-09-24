@@ -21,7 +21,7 @@ namespace MovieTicketBooking.Scenarious
             try
             {
                 int movieNumber = int.Parse(Console.ReadLine());
-                var selectedMovie = _movieRepository.SelectMovie(movieNumber);
+                var selectedMovie = _movieRepository.GetMovie(movieNumber-1);
 
                 Console.Clear();
                 Console.WriteLine($"Movie selected: {selectedMovie.Title}");

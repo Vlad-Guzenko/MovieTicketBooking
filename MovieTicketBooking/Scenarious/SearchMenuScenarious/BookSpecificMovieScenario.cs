@@ -44,11 +44,10 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 
                 _specificMovie.BookRequestedSeats(requestedSeats);
 
-                Console.WriteLine("The new reservation was successfuly added!");
-
                 _movieRepository.Save();
                 _bookingRepository.Save();
 
+                Console.WriteLine("The new reservation was successfuly added!");
             }
             catch (NotEnoughtSeatsException exception)
             {

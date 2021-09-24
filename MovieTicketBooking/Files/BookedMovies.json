@@ -166,12 +166,5 @@
     "Surname": "sdfasdf",
     "PhoneNumber": "35345345345",
     "SeatsQuantity": 2
-  },
-  {
-    "MovieId": "362e35bc-33e5-48a1-825e-ed413e488484",
-    "Name": "Vladik",
-    "Surname": "Aladik",
-    "PhoneNumber": "38090",
-    "SeatsQuantity": 2
   }
 ]

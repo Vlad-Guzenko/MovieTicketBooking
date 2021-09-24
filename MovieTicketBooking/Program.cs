@@ -18,10 +18,10 @@ namespace MovieTicketBooking
 
             var uiHelper = new UIHelper(movieRepository, bookingRepository);
 
-            uiHelper.RenderMoviesTable();
-            uiHelper.RenderMainMenu();
-
             int pageNumber = 1;
+
+            uiHelper.RenderMoviesTable(ref pageNumber);
+            uiHelper.RenderMainMenu();
 
             ConsoleKeyInfo keyInfo;
 
@@ -33,7 +33,7 @@ namespace MovieTicketBooking
                 {
                     case ConsoleKey.Backspace:
                         Console.Clear();
-                        uiHelper.RenderMoviesTable();
+                        uiHelper.RenderMoviesTable(ref pageNumber);
                         uiHelper.RenderMainMenu();
                         break;
 
@@ -44,8 +44,8 @@ namespace MovieTicketBooking
 
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        movieRepository.SortMoviesBy();
-                        uiHelper.RenderMoviesTable();
+                        new SortMoviesByCriterias(movieRepository).Run();
+                        uiHelper.RenderMoviesTable(ref pageNumber);
                         uiHelper.RenderMainMenu();
                         break;
 
@@ -85,16 +85,14 @@ namespace MovieTicketBooking
                         break;
 
                     case ConsoleKey.LeftArrow:
-                        pageNumber = pageNumber - 1;
-                        //movieRepository.GetPage(pageNumber);
-                        uiHelper.RenderMoviesTable();
+                        uiHelper.PrevPage(ref pageNumber);
+                        uiHelper.RenderMoviesTable(ref pageNumber);
                         uiHelper.RenderMainMenu();
                         break;
 
                     case ConsoleKey.RightArrow:
-                        pageNumber = pageNumber + 1;
-                        //movieRepository.GetPage(pageNumber);
-                        uiHelper.RenderMoviesTable();
+                        uiHelper.NextPage(ref pageNumber);
+                        uiHelper.RenderMoviesTable(ref pageNumber);
                         uiHelper.RenderMainMenu();
                         break;
                 }
@@ -152,6 +150,11 @@ namespace MovieTicketBooking
         {
             return new Movie(Guid.NewGuid(), movieTitle, seatsQuantity, movieGenre, new List<Comment>(),year, movieRating);
         }
+
+        internal void AddComment(string nameEntered, string reviewTyped)
+        {
+            Comments.Add(Comment.New(nameEntered, reviewTyped));
+        }
     }
 
     public class BookedMovie
@@ -191,10 +194,17 @@ namespace MovieTicketBooking
         public string User { get; set; }
         public string Text { get; set; }
 
-        public Comment(string user, string review)
+        private Comment(){ }
+
+        private Comment(string user, string review)
         {
             User = user;
             Text = review;
+        }
+
+        internal static Comment New(string nameEntered, string reviewTyped)
+        {
+            return new Comment(nameEntered, reviewTyped);
         }
     }
 }

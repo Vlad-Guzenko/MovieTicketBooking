@@ -18,7 +18,7 @@ namespace MovieTicketBooking.Scenarious
             Console.WriteLine("Select movie number: ");
 
             var movieNumber = int.Parse(Console.ReadLine());
-            var selectedMovie = _movieRepository.SelectMovie(movieNumber);
+            var selectedMovie = _movieRepository.GetMovie(movieNumber - 1);
 
             Console.WriteLine("Enter you name: ");
             string nameEntered = Console.ReadLine();
@@ -26,7 +26,7 @@ namespace MovieTicketBooking.Scenarious
             Console.WriteLine("Type your review: ");
             string reviewTyped = Console.ReadLine();
 
-            selectedMovie.Comments.Add( new Comment(nameEntered, reviewTyped));
+            selectedMovie.AddComment(nameEntered, reviewTyped);
 
             _movieRepository.Save();
 

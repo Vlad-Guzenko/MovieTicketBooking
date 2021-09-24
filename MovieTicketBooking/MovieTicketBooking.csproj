@@ -72,6 +72,7 @@
     <Compile Include="Scenarious\SearchMovieScenario.cs" />
     <Compile Include="Scenarious\ShowCommentsScenario.cs" />
     <Compile Include="Scenarious\ShowAllBookingsScenario.cs" />
+    <Compile Include="Scenarious\SortMoviesByCriterias.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

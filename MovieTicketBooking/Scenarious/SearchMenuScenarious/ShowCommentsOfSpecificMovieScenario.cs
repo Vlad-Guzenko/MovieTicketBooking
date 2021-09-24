@@ -3,21 +3,25 @@ using System;
 
 namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 {
-    class ShowCommentsOfSpecificMovieScenario
+    public class ShowCommentsOfSpecificMovieScenario : IRunnable
     {
-        private Movie _movie { get; set; }
+        private readonly Movie _movie;
+
         public ShowCommentsOfSpecificMovieScenario(Movie movie)
         {
             _movie = movie;
         }
-        public void ShowCommentsOfSpecificMovie()
+        public void Run()
         {
             Console.WriteLine();
+
             var tab = new ConsoleTable("Title", "Comments");
+
             _movie.Comments.ForEach(comment =>
             {
                 tab.AddRow(comment.User, comment.Text);
             });
+
             tab.Write(Format.Alternative);
         }
     }

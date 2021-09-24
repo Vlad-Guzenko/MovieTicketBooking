@@ -24,6 +24,7 @@ namespace MovieTicketBooking.Scenarious
             int movieYear = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter the movie rating: ");
             float movieRating = float.Parse(Console.ReadLine());
+            movieRating = movieRating > 10 ? movieRating = 10 : movieRating;
             Console.WriteLine("Enter seats quantity: ");
             int seatsQuantity = int.Parse(Console.ReadLine());
 
