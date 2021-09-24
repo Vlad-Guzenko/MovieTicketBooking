@@ -19,7 +19,7 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
             Console.WriteLine();
             var bookings = _bookingRepository.GetById(_id);
 
-            var tab = new ConsoleTable("Name", "Surname", "PhoneNumber", "SeatsQuantity");
+            var tab = new ConsoleTable("Name", "Surname", "Phone Number", "Seats Quantity");
             bookings.ForEach(booking =>
             {
                 tab.AddRow(booking.Name, booking.Surname, booking.PhoneNumber, booking.SeatsQuantity);

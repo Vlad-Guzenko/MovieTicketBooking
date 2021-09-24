@@ -20,6 +20,8 @@ namespace MovieTicketBooking.Scenarious
             var movieTitle = Console.ReadLine();
             Console.WriteLine("Enter movie genre: ");
             string movieGenre = Console.ReadLine();
+            Console.WriteLine("Type movie year: ");
+            int movieYear = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter the movie rating: ");
             float movieRating = float.Parse(Console.ReadLine());
             Console.WriteLine("Enter seats quantity: ");
@@ -27,10 +29,9 @@ namespace MovieTicketBooking.Scenarious
 
             Console.WriteLine("Added!");
 
-            var newMovie = Movie.New(movieTitle, movieGenre, movieRating, seatsQuantity);
+            var newMovie = Movie.New(movieTitle, movieGenre, movieYear, movieRating, seatsQuantity);
 
             _movieRepository.Create(newMovie);
-            //_bookings.Add(new BookedMovie(selectedMovie.Id, name, surname, phoneNumber, requestedSeats));
 
             _movieRepository.Save();
 

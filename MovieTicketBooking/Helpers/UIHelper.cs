@@ -26,14 +26,17 @@ namespace MovieTicketBooking.Helpers
 
             var rightPaddingTitle = new string(' ', maxTitleLength - titleCol.Length);
 
-            Console.WriteLine($"| #  | {titleCol}{rightPaddingTitle} | Free Seats | Comments | Rating |");
-            var specifier = "0.0";
+            Console.WriteLine($"|  # | {titleCol}{rightPaddingTitle} | Free Seats | Comments | Year | Rating  |");
+            string specifier;
             foreach (var movieIterator in movies.Select((item, index) => (item, index)))
             {
+                
                 var leftPad = new string(' ', maxTitleLength - movieIterator.item.Title.Length);
 
                 var number = movieIterator.index + 1;
-                Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} |     {movieIterator.item.FreeSeats.ToString("D3")}    |    {movieIterator.item.Comments.Count.ToString("D3")}   |   {movieIterator.item.Rating.ToString(specifier)}  |");
+                specifier = movieIterator.item.Rating >= 10 ? specifier = "0 " : specifier = "0.0";
+
+                Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} |     {movieIterator.item.FreeSeats.ToString("D3")}    |    {movieIterator.item.Comments.Count.ToString("D3")}   | {movieIterator.item.Year} |   {movieIterator.item.Rating.ToString(specifier)}   |");
             }
         }
 
@@ -47,11 +50,11 @@ namespace MovieTicketBooking.Helpers
         {
             Console.Clear();
             var bookings = _bookingRepository.GetAll();
-            var tab = new ConsoleTable("Name", "Surname", "Phone", "Seats", "Id");
+            var tab = new ConsoleTable("Name", "Surname", "Phone", "Seats", "Movie Title");
 
             bookings.ForEach(booking =>
             {
-                tab.AddRow(booking.Name, booking.Surname, booking.PhoneNumber, booking.SeatsQuantity, booking.MovieId);
+                tab.AddRow(booking.Name, booking.Surname, booking.PhoneNumber, booking.SeatsQuantity, _movieRepository.GetById(booking.MovieId).Title);
             });
             tab.Write(Format.Alternative);
             Console.WriteLine("Press backspace to return");

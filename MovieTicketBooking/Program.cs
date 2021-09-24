@@ -6,7 +6,6 @@ using MovieTicketBooking.Exceptions;
 using MovieTicketBooking.Scenarious;
 using MovieTicketBooking.Helpers;
 using MovieTicketBooking.Repositories;
-using System.Linq;
 
 namespace MovieTicketBooking
 {
@@ -21,6 +20,8 @@ namespace MovieTicketBooking
 
             uiHelper.RenderMoviesTable();
             uiHelper.RenderMainMenu();
+
+            int pageNumber = 1;
 
             ConsoleKeyInfo keyInfo;
 
@@ -43,7 +44,7 @@ namespace MovieTicketBooking
 
                     case ConsoleKey.D2:
                     case ConsoleKey.NumPad2:
-                        movieRepository.SortMovies();
+                        movieRepository.SortMoviesBy();
                         uiHelper.RenderMoviesTable();
                         uiHelper.RenderMainMenu();
                         break;
@@ -82,6 +83,20 @@ namespace MovieTicketBooking
                     case ConsoleKey.NumPad9:
                         uiHelper.RenderBookings();
                         break;
+
+                    case ConsoleKey.LeftArrow:
+                        pageNumber = pageNumber - 1;
+                        //movieRepository.GetPage(pageNumber);
+                        uiHelper.RenderMoviesTable();
+                        uiHelper.RenderMainMenu();
+                        break;
+
+                    case ConsoleKey.RightArrow:
+                        pageNumber = pageNumber + 1;
+                        //movieRepository.GetPage(pageNumber);
+                        uiHelper.RenderMoviesTable();
+                        uiHelper.RenderMainMenu();
+                        break;
                 }
             }
             while (keyInfo.Key != ConsoleKey.X);
@@ -95,17 +110,19 @@ namespace MovieTicketBooking
         public int FreeSeats { get; set; }
         public string Genre { get; set; }
         public List<Comment> Comments { get; set; }
+        public int Year { get; set; }
         public float Rating { get; set; }
 
         private Movie() { }
 
-        private Movie(Guid id, string title, int freeseats, string genre, List<Comment> comments, float rating)
+        private Movie(Guid id, string title, int freeseats, string genre, List<Comment> comments, int year, float rating)
         {
             Id = id;
             Title = title;
             FreeSeats = freeseats;
             Genre = genre;
             Comments = comments;
+            Year = year;
             Rating = rating;
         }
 
@@ -131,9 +148,9 @@ namespace MovieTicketBooking
             }
         }
 
-        public static Movie New(string movieTitle, string movieGenre, float movieRating, int seatsQuantity)
+        public static Movie New(string movieTitle, string movieGenre, int year, float movieRating, int seatsQuantity)
         {
-            return new Movie(Guid.NewGuid(), movieTitle, seatsQuantity, movieGenre, new List<Comment>(), movieRating);
+            return new Movie(Guid.NewGuid(), movieTitle, seatsQuantity, movieGenre, new List<Comment>(),year, movieRating);
         }
     }
 

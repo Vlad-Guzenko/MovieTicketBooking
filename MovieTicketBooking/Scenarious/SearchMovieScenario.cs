@@ -2,8 +2,6 @@
 using MovieTicketBooking.Repositories;
 using MovieTicketBooking.Scenarious.SearchMenuScenarious;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MovieTicketBooking.Scenarious
 {
