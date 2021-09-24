@@ -1,4 +1,5 @@
-﻿using MovieTicketBooking.Exceptions;
+﻿using MovieTicketBooking.Entities;
+using MovieTicketBooking.Exceptions;
 using MovieTicketBooking.Repositories;
 using System;
 
@@ -6,8 +7,8 @@ namespace MovieTicketBooking.Scenarious
 {
     public class BookMovieScenario : IRunnable
     {
-        private MovieRepository _movieRepository;
-        private BookingRepository _bookingRepository;
+        private readonly MovieRepository _movieRepository;
+        private readonly BookingRepository _bookingRepository;
 
         public BookMovieScenario(MovieRepository movieRepository,  BookingRepository bookingRepository)
         {

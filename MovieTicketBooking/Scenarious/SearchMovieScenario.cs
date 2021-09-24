@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+using MovieTicketBooking.Entities;
 using MovieTicketBooking.Repositories;
 using MovieTicketBooking.Scenarious.SearchMenuScenarious;
 using System;
@@ -7,8 +8,8 @@ namespace MovieTicketBooking.Scenarious
 {
     public class SearchMovieScenario : IRunnable
     {
-        private MovieRepository _movieRepository;
-        private BookingRepository _bookingRepository;
+        private readonly MovieRepository _movieRepository;
+        private readonly BookingRepository _bookingRepository;
 
         public SearchMovieScenario(MovieRepository movieRepository, BookingRepository bookingRepository)
         {

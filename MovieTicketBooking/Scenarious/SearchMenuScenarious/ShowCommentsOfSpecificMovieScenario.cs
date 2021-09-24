@@ -1,4 +1,5 @@
 ﻿using ConsoleTables;
+using MovieTicketBooking.Entities;
 using System;
 
 namespace MovieTicketBooking.Scenarious.SearchMenuScenarious

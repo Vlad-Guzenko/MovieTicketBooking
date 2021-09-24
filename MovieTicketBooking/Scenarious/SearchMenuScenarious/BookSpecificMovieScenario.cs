@@ -1,18 +1,16 @@
-﻿using MovieTicketBooking.Exceptions;
+﻿using MovieTicketBooking.Entities;
+using MovieTicketBooking.Exceptions;
 using MovieTicketBooking.Repositories;
-using Newtonsoft.Json;
+
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
 namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 {
     public class BookSpecificMovieScenario:IRunnable
     {
-        private MovieRepository _movieRepository;
-        private Movie _specificMovie;
-        private BookingRepository _bookingRepository;
+        private readonly MovieRepository _movieRepository;
+        private readonly Movie _specificMovie;
+        private readonly BookingRepository _bookingRepository;
 
         public BookSpecificMovieScenario(MovieRepository movieRepository, Movie specificMovie, BookingRepository bookingRepository)
         {

@@ -1,4 +1,5 @@
-﻿using MovieTicketBooking.Repositories;
+﻿using MovieTicketBooking.Entities;
+using MovieTicketBooking.Repositories;
 using System;
 
 namespace MovieTicketBooking.Scenarious

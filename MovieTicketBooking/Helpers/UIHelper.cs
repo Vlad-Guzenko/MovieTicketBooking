@@ -7,8 +7,8 @@ namespace MovieTicketBooking.Helpers
 {
     public class UIHelper
     {
-        private MovieRepository _movieRepository;
-        private BookingRepository _bookingRepository;
+        private readonly MovieRepository _movieRepository;
+        private readonly BookingRepository _bookingRepository;
 
         public UIHelper(MovieRepository movieRepository, BookingRepository bookingRepository)
         {
@@ -16,23 +16,15 @@ namespace MovieTicketBooking.Helpers
             _bookingRepository = bookingRepository;
         }
 
-        public int NextPage(ref int pageNumber)
+        public void RenderMoviesTable()
         {
-            //int maxPageNumber = (int)Math.Round((double)_movieRepository.GetAll().Count() / 5, MidpointRounding.ToEven);
-            return pageNumber += 1;
-        }
-
-        public int PrevPage(ref int pageNumber)
-        {
-            return pageNumber -= 1;
-        }
-
-        public void RenderMoviesTable(ref int pageNumber)
-        {
+            /*var max = Math.Round((double)(_movieRepository.GetAll().Count / 10), MidpointRounding.ToEven);
             var movies = _movieRepository.GetAll()
-                                                .Skip((pageNumber - 1) * 5)
-                                                .Take(5)
-                                                .ToList();
+                                         .Skip((pageNumber - 1) * 5)
+                                         .Take(5)
+                                         .ToList();*/
+
+            var movies = _movieRepository.GetAll();
 
             Console.Clear();
             var maxTitleLength = movies.Max(title => title.Title.Length);
@@ -53,7 +45,7 @@ namespace MovieTicketBooking.Helpers
 
                 Console.WriteLine($"| {number.ToString("D2")} | {movieIterator.item.Title}{leftPad} |     {movieIterator.item.FreeSeats.ToString("D3")}    |    {movieIterator.item.Comments.Count.ToString("D3")}   | {movieIterator.item.Year} |   {movieIterator.item.Rating.ToString(specifier)}   |");
             }
-            Console.WriteLine($"PAGE NUMBER: {pageNumber}");
+            //Console.WriteLine($"PAGE NUMBER: {pageNumber}");
         }
 
         public void RenderMainMenu()
@@ -76,7 +68,7 @@ namespace MovieTicketBooking.Helpers
             Console.WriteLine("Press backspace to return");
         }
 
-        public void RenderPaginatedList(int pageNumber)
+        public void RenderPaginatedList()
         {
             
 
