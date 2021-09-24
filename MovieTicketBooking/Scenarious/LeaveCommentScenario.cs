@@ -5,7 +5,7 @@ namespace MovieTicketBooking.Scenarious
 {
     public class LeaveCommentScenario : IRunnable
     {
-        private MovieRepository _movieRepository;
+        private readonly MovieRepository _movieRepository;
 
         public LeaveCommentScenario(MovieRepository movieRepository)
         {

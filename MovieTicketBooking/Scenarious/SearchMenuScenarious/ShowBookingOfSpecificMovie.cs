@@ -6,7 +6,7 @@ namespace MovieTicketBooking.Scenarious.SearchMenuScenarious
 {
     class ShowBookingOfSpecificMovie : IRunnable
     {
-        private BookingRepository _bookingRepository;
+        private readonly BookingRepository _bookingRepository;
         private Guid _movieId;
 
         public ShowBookingOfSpecificMovie(BookingRepository bookingRepository, Guid movieId)

@@ -8,8 +8,8 @@ namespace MovieTicketBooking.Repositories
 {
     public class MovieRepository
     {
-        private List<Movie> _movies;
-        private string _pathToMovies = @"../../Files\Movies.json";
+        private readonly List<Movie> _movies;
+        private readonly string _pathToMovies = @"../../Files\Movies.json";
 
         public MovieRepository()
         {

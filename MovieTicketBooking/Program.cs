@@ -11,7 +11,7 @@ namespace MovieTicketBooking
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var movieRepository = new MovieRepository();
             var bookingRepository = new BookingRepository();

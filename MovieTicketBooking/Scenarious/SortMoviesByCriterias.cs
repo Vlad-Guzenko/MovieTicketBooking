@@ -6,7 +6,7 @@ namespace MovieTicketBooking.Scenarious
 {
     class SortMoviesByCriterias : IRunnable
     {
-        private MovieRepository _movieRepository;
+        private readonly MovieRepository _movieRepository;
 
         public SortMoviesByCriterias(MovieRepository movieRepository)
         {

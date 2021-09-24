@@ -5,7 +5,7 @@ namespace MovieTicketBooking.Scenarious
 {
     public class AddMovieScenario : IRunnable
     {
-        private MovieRepository _movieRepository;
+        private readonly MovieRepository _movieRepository;
 
         public AddMovieScenario(MovieRepository movieRepository)
         {
